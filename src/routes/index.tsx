@@ -5,6 +5,9 @@ import Login from "../components/Login";
 import Register from "../components/Register";
 import NotFound from "../components/NotFound";
 import Home from "../components/Home";
+import Hotels from "../components/Hotels";
+import Rooms from "../components/Rooms";
+import Reserve from "../components/Reserve";
 // import NotFound from "../screens/NotFound";
 // import Login from "../screens/Login";
 // import Register from "../screens/Register";
@@ -32,6 +35,18 @@ const routes = createBrowserRouter([
       {
         path: "/home",
         element: <Home />,
+      },
+      {
+        path: "/hotels",
+        element: <Hotels />,
+      },
+      {
+        path: "/rooms/:id",
+        element: <Rooms />,
+      },
+      {
+        path: "/reserve/:id",
+        element: <Reserve />,
       },
       //   {
       //     path: "/cart",

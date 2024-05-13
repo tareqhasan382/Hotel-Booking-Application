@@ -5,19 +5,19 @@ export const authApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     signup: builder.mutation({
       query: (data) => ({
-        url: "/api/v1/users/create-user",
+        url: "/registration",
         method: "POST",
         body: data,
       }),
       async onQueryStarted(_, { queryFulfilled, dispatch }) {
         try {
           const result = await queryFulfilled;
-
+          console.log("signup:", result.data.data);
           localStorage.setItem(
             "auth",
             JSON.stringify({
-              accessToken: result.data.accessToken,
-              user: result.data.user,
+              accessToken: result.data.data,
+              user: result.data.data,
             })
           );
 
@@ -34,7 +34,7 @@ export const authApi = baseApi.injectEndpoints({
     }),
     login: builder.mutation({
       query: (data) => ({
-        url: "/api/v1/users/user-login",
+        url: "/signin",
         method: "POST",
         body: data,
       }),

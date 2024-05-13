@@ -9,6 +9,8 @@ import { FaGithub } from "react-icons/fa";
 // import { signIn } from "next-auth/react";
 // import { toast } from "react-toastify";
 import { Link, useNavigate } from "react-router-dom";
+import { useSignupMutation } from "../Redux/auth/authApi";
+import { toast } from "react-toastify";
 
 interface FormData {
   name: string;
@@ -17,6 +19,7 @@ interface FormData {
 }
 
 const Register: React.FC = () => {
+  const [signup] = useSignupMutation();
   const navgate = useNavigate();
   const [loading, setLoading] = useState<boolean>(false);
   const schema = yup.object().shape({
@@ -33,23 +36,18 @@ const Register: React.FC = () => {
   const onSubmit = async (data: FormData) => {
     try {
       setLoading(true);
-      console.log("data:", data);
-      // const result = await signIn("credentials", {
-      //   email: data.email,
-      //   password: data.password,
-      //   redirect: false,
-      // });
+      // console.log("data:", data);
+      const result = await signup(data);
       setLoading(false);
-
-      // if (result.error) {
-      //   setLoading(false);
-      //   toast.error("Invalid credentials");
-      // }
-      // if (result.ok) {
-      //   toast.success("User loggedIn successfully");
-      //   setLoading(false);
-      //   router.replace("/");
-      // }
+      // console.log("result:", result.data.status);
+      if (!result.data.status) {
+        setLoading(false);
+        toast.error("Invalid credentials");
+      }
+      if (result.data.status) {
+        setLoading(false);
+        navgate("/login");
+      }
     } catch (error) {
       setLoading(false);
       console.log(error);

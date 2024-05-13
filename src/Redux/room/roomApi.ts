@@ -11,7 +11,7 @@ export interface Hotel {
   }[];
 }
 
-export const hotelApi = baseApi.injectEndpoints({
+export const roomApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
     fetchHotels: build.query<any, any>({
       query: (data) => ({
@@ -21,10 +21,10 @@ export const hotelApi = baseApi.injectEndpoints({
       }),
       providesTags: ["hotel"],
     }),
-    //router.get("/room/:id", HotelController.getHotelRooms);
-    HotelRooms: build.query<any, any>({
+    // router.get("/singleRoom/:id", RoomController.getSingleRoomData);
+    getRoom: build.query<any, any>({
       query: (id) => ({
-        url: `/room/${id}`,
+        url: `/singleRoom/${id}`,
         method: "GET",
       }),
       providesTags: ["hotel"],
@@ -69,5 +69,5 @@ export const {
   useFetchCountByTypeQuery,
   useHotelQuery,
   useHotelsQuery,
-  useHotelRoomsQuery,
-} = hotelApi;
+  useGetRoomQuery,
+} = roomApi;

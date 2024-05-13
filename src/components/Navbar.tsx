@@ -3,12 +3,15 @@ import { CiMenuBurger } from "react-icons/ci";
 import { AiOutlineClose } from "react-icons/ai";
 import { Heart, ShoppingCart } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { RootState } from "../Redux/store";
 
 const Navbar: React.FC = () => {
-  const session = null;
+  const session = useSelector((state: RootState) => state.auth);
+
   const [showProfile, setShowProfile] = useState(false);
   const [showNav, setShowNav] = useState(false);
-  // const cart = useCart();
+
   useEffect(() => {}, []);
   return (
     <div className="max-w-[1280px] mx-auto overflow-x-hidden">
