@@ -12,13 +12,13 @@ interface Room {
   unavailableDates: string[];
 }
 
-interface RoomData {
-  _id: string;
-  title: string;
-  desc: string;
-  price: number;
-  roomNumbers: Room[];
-}
+// interface RoomData {
+//   _id: string;
+//   title: string;
+//   desc: string;
+//   price: number;
+//   roomNumbers: Room[];
+// }
 
 interface CustomDateRange {
   startDate: Date;
@@ -112,7 +112,7 @@ const Reserve: React.FC = () => {
                       setDates([item.selection as CustomDateRange])
                     }
                     moveRangeOnFirstSelection={false}
-                    ranges={dates as DateRangeProps["ranges"]}
+                    ranges={dates}
                     className="date"
                     minDate={new Date()}
                   />
