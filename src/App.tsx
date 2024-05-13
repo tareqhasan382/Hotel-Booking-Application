@@ -1,29 +1,32 @@
 import "./index.css";
-import AOS from "aos";
-import "aos/dist/aos.css";
-import { useEffect } from "react";
-import Hero from "./components/Hero";
-import Testimonials from "./components/Testimonials";
-import CartSlider from "./components/CartSlider";
-function App() {
-  useEffect(() => {
-    AOS.init({
-      offset: 300,
-      duration: 800,
-      easing: "ease-in-sine",
-      delay: 200,
-    });
-    AOS.refresh();
-  }, []);
-  return (
-    <div className="bg-white dark:bg-gray-900 dark:text-white duration-200 relative overflow-hidden ">
-      <Hero />
 
-      <div className=" overflow-hidden lg:px-20 px-2 ">
-        <CartSlider />
+import Testimonials from "./components/Testimonials";
+
+import Header from "./components/Header";
+import Featured from "./components/Featured";
+import PropertyList from "./components/PropertyList";
+import FeaturedProperties from "./components/FeaturedProperties";
+
+function App() {
+  return (
+    <div className="bg-white -top-1 dark:bg-gray-900 dark:text-white duration-200 relative overflow-hidden ">
+      <Header />
+      <div className=" overflow-hidden lg:px-20 px-2 flex flex-col gap-10 ">
+        <Featured />
+        <div>
+          <h1 className=" px-8 lg:text-2xl text-xl font-bold  py-5">
+            Browse by property type
+          </h1>
+          <PropertyList />
+        </div>
+        <div>
+          <h1 className=" px-8 lg:text-2xl text-xl font-bold  py-5">
+            Home Guests Love
+          </h1>
+          <FeaturedProperties />
+        </div>
       </div>
       <Testimonials />
-      {/* <Footer/> || data-aos="zoom-out-left" ||  data-aos="zoom-out-right" */}
     </div>
   );
 }

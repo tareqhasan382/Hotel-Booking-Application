@@ -4,6 +4,7 @@ import App from "../App";
 import Login from "../components/Login";
 import Register from "../components/Register";
 import NotFound from "../components/NotFound";
+import Home from "../components/Home";
 // import NotFound from "../screens/NotFound";
 // import Login from "../screens/Login";
 // import Register from "../screens/Register";
@@ -27,6 +28,10 @@ const routes = createBrowserRouter([
       {
         path: "/",
         element: <App />,
+      },
+      {
+        path: "/home",
+        element: <Home />,
       },
       //   {
       //     path: "/cart",

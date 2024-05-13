@@ -1,32 +1,17 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+
+import { fetchHotels } from "../utils/api";
 import { RootState } from "../Redux/store";
-import {
-  fetchHotelsAsync,
-  addHotel,
-  // updateHotel,
-  // deleteHotel,
-  // updateHotelName,
-  // updateHotelLocation,
-} from "../Redux/hotel/hotelSlice";
+import { addHotel, hotels } from "../Redux/hotel/note";
 
 const Home: React.FC = () => {
   const dispatch = useDispatch();
-  const hotels = useSelector((state: RootState) => state.hotel.data);
-  // const loading = useSelector((state: RootState) => state.hotel.loading);
-  // const error = useSelector((state: RootState) => state.hotel.error);
-
+  const hotel = useSelector((state: RootState) => state.hotel.data);
   useEffect(() => {
-    dispatch(fetchHotelsAsync());
+    dispatch(hotels(fetchHotels()));
   }, [dispatch]);
 
-  // const handleUpdateHotelName = async (id: number, name: string) => {
-  //   dispatch(updateHotelName({ id, name }));
-  // };
-
-  // const handleUpdateHotelLocation = async (id: number, location: string) => {
-  //   dispatch(updateHotelLocation({ id, location }));
-  // };
   const handleAddHotel = async () => {
     const newHotelData = {
       id: hotels.length + 1,
@@ -35,7 +20,6 @@ const Home: React.FC = () => {
       rooms: [],
     };
     dispatch(addHotel(newHotelData));
-    // dispatch(updateHotelLocation({ id, location }));
   };
   const handleUpdateHotel = (id: number) => {
     console.log(id);
@@ -43,7 +27,6 @@ const Home: React.FC = () => {
   const handleDeleteHotel = (id: number) => {
     console.log(id);
   };
-
   return (
     <div className="w-full flex flex-col items-center justify-center">
       <h1 className="text-3xl font-bold mb-4">Home</h1>
@@ -55,7 +38,7 @@ const Home: React.FC = () => {
       </button>
 
       <div className="w-full flex flex-col items-center justify-center mt-8">
-        {hotels.map((item) => (
+        {hotel.map((item) => (
           <div
             key={item.id}
             className="w-full max-w-xl bg-white rounded-md shadow-md p-4 mb-4"

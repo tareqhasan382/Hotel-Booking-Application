@@ -52,7 +52,7 @@ const Footer: React.FC = () => {
   return (
     <div
       //   style={BannerImg}
-      className="text-black flex flex-wrap items-center justify-center  "
+      className="bg-[#0b0d1c] text-white flex flex-wrap items-center justify-center  "
     >
       <div data-aos="zoom-in" className="container">
         <div data-aos="zoom-in" className="grid md:grid-cols-3  pt-5">
@@ -83,7 +83,7 @@ const Footer: React.FC = () => {
                 <ul className="flex flex-col gap-3">
                   {FooterLinks.map((link) => (
                     <li
-                      className="cursor-pointer hover:text-primary hover:translate-x-1 duration-300 text-black"
+                      className="cursor-pointer hover:text-primary hover:translate-x-1 duration-300 "
                       key={link.title}
                     >
                       <span>{link.title}</span>
@@ -100,7 +100,7 @@ const Footer: React.FC = () => {
                 <ul className="flex flex-col gap-3">
                   {FooterLinks.map((link) => (
                     <li
-                      className="cursor-pointer hover:text-primary hover:translate-x-1 duration-300 text-black"
+                      className="cursor-pointer hover:text-primary hover:translate-x-1 duration-300 "
                       key={link.title}
                     >
                       <span>{link.title}</span>
@@ -138,7 +138,7 @@ const Footer: React.FC = () => {
           </div>
         </div>
       </div>
-      <div className=" text-center flex flex-row items-center justify-center text-black ">
+      <div className=" text-center flex flex-row items-center justify-center  ">
         <span className=" px-1 ">Copyright &copy; {currentYear} ||</span>
         <span>Developed by Tareq</span>
       </div>

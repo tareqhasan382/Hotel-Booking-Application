@@ -96,7 +96,7 @@ const Navbar: React.FC = () => {
 
           <span
             onClick={() => setShowNav(!showNav)}
-            className="p-[9px] bg-gray-100 rounded-md md:hidden"
+            className="p-[9px] bg-black rounded-md md:hidden"
           >
             {showNav ? (
               <AiOutlineClose
@@ -117,12 +117,12 @@ const Navbar: React.FC = () => {
         style={{ maxWidth: "100vw", overflowX: "hidden" }}
       >
         <ul className=" flex flex-col text-[15px] py-2 ">
-          <li className=" mx-5 hover:bg-white hover:duration-75  rounded-full py-1 cursor-pointer ">
+          <li className=" mx-5 hover:bg-white hover:text-black hover:duration-75  rounded-full py-1 cursor-pointer ">
             <Link to="/">
               <span className=" px-5 ">Home</span>
             </Link>
           </li>
-          <li className=" mx-5 hover:bg-white hover:duration-75 rounded-full py-1 cursor-pointer ">
+          <li className=" mx-5 hover:bg-white hover:text-black hover:duration-75 rounded-full py-1 cursor-pointer ">
             <Link to="/orders">
               <span className=" px-5 ">Orders</span>
             </Link>
