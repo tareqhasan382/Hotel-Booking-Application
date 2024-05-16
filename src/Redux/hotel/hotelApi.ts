@@ -1,19 +1,67 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import baseApi from "../api/baseApi";
+export interface Room {
+  _id: string;
+  roomNumber: number;
+  title: string;
+  desc: string;
+  bedCount: number;
+  guestCount: number;
+  bathroomCount: number;
+  image: string[];
+  breakFastPrice: number;
+  price: number;
+  roomService: boolean;
+  TV: boolean;
+  balcony: boolean;
+  freeWifi: boolean;
+  airCondition: boolean;
+  soundProofed: boolean;
+  unavailableDates: string[];
+  hotel: string;
+}
 export interface Hotel {
-  id: number;
+  _id: string;
   name: string;
-  location: string;
-  rooms: {
-    id: number;
-    type: string;
-    price: number;
-  }[];
+  type: string;
+  title: string;
+  desc: string;
+  city: string;
+  address: string;
+  distance: string;
+  gym: boolean;
+  photos: string[];
+  rating?: number;
+  cheapestPrice: number;
+  featured?: boolean;
+  rooms?: Room[];
 }
 
+export interface IHotelResponse {
+  status: boolean;
+  message: string;
+  data: Hotel[];
+}
+
+interface QueryParams {
+  limit?: number;
+  featured?: boolean;
+}
+export interface CountByCity {
+  type: string;
+  count: number;
+}
+[];
+
+type CountByCityResponse = number[];
+type CityQueryData = string[];
+interface Property {
+  type: string;
+  count: number;
+}
+type PropertyArray = Property[];
 export const hotelApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
-    fetchHotels: build.query<any, any>({
+    fetchHotels: build.query<IHotelResponse, QueryParams>({
       query: (data) => ({
         url: "/hotels",
         method: "GET",
@@ -21,15 +69,15 @@ export const hotelApi = baseApi.injectEndpoints({
       }),
       providesTags: ["hotel"],
     }),
-    //router.get("/room/:id", HotelController.getHotelRooms);
-    HotelRooms: build.query<any, any>({
+    //router.get("/room/:id", HotelController.getHotelRooms); || /hotel/room/:id
+    HotelRooms: build.query({
       query: (id) => ({
-        url: `/room/${id}`,
+        url: `/hotel/room/${id}`,
         method: "GET",
       }),
       providesTags: ["hotel"],
     }),
-    Hotels: build.query<any, any>({
+    Hotels: build.query<IHotelResponse, QueryParams>({
       query: (data) => ({
         url: "/hotels",
         method: "GET",
@@ -37,7 +85,7 @@ export const hotelApi = baseApi.injectEndpoints({
       }),
       providesTags: ["hotel"],
     }),
-    fetchCountByCity: build.query({
+    fetchCountByCity: build.query<CountByCityResponse, CityQueryData>({
       query: (cities) => ({
         url: "/countByCity",
         method: "GET",
@@ -45,7 +93,7 @@ export const hotelApi = baseApi.injectEndpoints({
       }),
       providesTags: ["hotel"],
     }),
-    fetchCountByType: build.query({
+    fetchCountByType: build.query<PropertyArray, void>({
       query: () => ({
         url: "/countByType",
         method: "GET",

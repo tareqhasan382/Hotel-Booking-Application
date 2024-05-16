@@ -1,37 +1,45 @@
 import { useFetchCountByTypeQuery } from "../Redux/hotel/hotelApi";
 import LoaderModal from "./Loader";
 
+interface Property {
+  type: string;
+  count: number;
+}
+
 const PropertyList = () => {
   const { data, isLoading } = useFetchCountByTypeQuery(undefined);
 
   const images = [
-    "https://cf.bstatic.com/xdata/images/xphoto/square300/57584488.webp?k=bf724e4e9b9b75480bbe7fc675460a089ba6414fe4693b83ea3fdd8e938832a6&o=",
-    "https://cf.bstatic.com/static/img/theme-index/carousel_320x240/card-image-apartments_300/9f60235dc09a3ac3f0a93adbc901c61ecd1ce72e.jpg",
+    "https://i.ibb.co/mJscrcn/976239.jpg",
+    "https://i.ibb.co/m4d7qHJ/th.jpg",
     "https://cf.bstatic.com/static/img/theme-index/carousel_320x240/bg_resorts/6f87c6143fbd51a0bb5d15ca3b9cf84211ab0884.jpg",
     "https://cf.bstatic.com/static/img/theme-index/carousel_320x240/card-image-villas_300/dd0d7f8202676306a661aa4f0cf1ffab31286211.jpg",
     "https://cf.bstatic.com/static/img/theme-index/carousel_320x240/card-image-chalet_300/8ee014fcc493cb3334e25893a1dee8c6d36ed0ba.jpg",
   ];
+
   return (
-    <div className=" w-[100%] flex lg:flex-row flex-col justify-between gap-10 px-8 ">
+    <div className="w-full grid lg:grid-cols-5 md:grid-cols-3 grid-cols-2 justify-between gap-10">
       {isLoading ? (
         <LoaderModal />
       ) : (
         <>
           {data &&
-            images.map((img, i) => (
+            data?.map((property: Property, i: number) => (
               <div
-                className=" flex-1 rounded-md overflow-hidden cursor-pointer "
+                className="flex-1 rounded-md overflow-hidden cursor-pointer"
                 key={i}
               >
-                <img
-                  src={img}
-                  alt=""
-                  className=" w-[100%] h-[150px] object-cover "
-                />
+                <div className="w-full h-[150px] overflow-hidden">
+                  <img
+                    src={images[i]}
+                    alt="List-Titles"
+                    className="object-cover transition-transform transform hover:scale-110 duration-300"
+                  />
+                </div>
                 <div className="pListTitles">
-                  <h1 className=" font-bold capitalize ">{data[i]?.type}</h1>
-                  <h2 className=" font-medium ">
-                    {data[i]?.count} {data[i]?.type}
+                  <h1 className="font-bold capitalize">{property.type}</h1>
+                  <h2 className="font-medium">
+                    {property.count} {property.type}
                   </h2>
                 </div>
               </div>

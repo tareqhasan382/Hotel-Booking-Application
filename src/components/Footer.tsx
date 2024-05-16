@@ -1,4 +1,3 @@
-// import Banner from "../assets/footer-pattern.jpg";
 import {
   FaFacebook,
   FaInstagram,
@@ -55,13 +54,12 @@ const Footer: React.FC = () => {
       className="bg-[#0b0d1c] text-white flex flex-wrap items-center justify-center  "
     >
       <div data-aos="zoom-in" className="container">
-        <div data-aos="zoom-in" className="grid md:grid-cols-3  pt-5">
+        <div
+          data-aos="zoom-in"
+          className="grid lg:grid-cols-3  md:grid-cols-2  pt-5"
+        >
           {/* company details */}
-          <div className="py-8 px-4 lg:ml-10 ">
-            {/* <h1 className="sm:text-3xl text-xl font-bold sm:text-left text-justify mb-3 flex items-center gap-3">
-              <img src={footerLogo} alt="" className="max-w-[50px]" />
-              Shopsy font-semibold text-2xl
-            </h1> */}
+          <div className="py-8 px-4 lg:ml-10 md:ml-10  ">
             <Link to="/" className=" text-heading2-bold">
               <h1 className=" text-4xl gradient-text text-transparent font-extrabold  ">
                 Hotel Booking

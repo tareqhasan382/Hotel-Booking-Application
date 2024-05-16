@@ -1,13 +1,10 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-// import Link from "next/link";
-// import { useRouter } from "next/router"; // Changed from "next/navigation"
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { FcGoogle } from "react-icons/fc";
 import { FaGithub } from "react-icons/fa";
-// import { signIn } from "next-auth/react";
-// import { toast } from "react-toastify";
+
 import { Link, useNavigate } from "react-router-dom";
 import { useLoginMutation } from "../Redux/auth/authApi";
 import { toast } from "react-toastify";
@@ -18,6 +15,7 @@ interface FormData {
 }
 
 const Login: React.FC = () => {
+  const roomString = localStorage.getItem("roomId");
   const [login] = useLoginMutation();
   const navgate = useNavigate();
   const [loading, setLoading] = useState<boolean>(false);
@@ -40,6 +38,11 @@ const Login: React.FC = () => {
       if (result.data.status) {
         setLoading(false);
         toast.success("User loggedIn successfully");
+        //rooms
+        if (roomString) {
+          localStorage.removeItem("roomId");
+          return navgate(`/rooms/${roomString}`);
+        }
         navgate("/");
       }
       if (!result.data.status) {
@@ -75,7 +78,7 @@ const Login: React.FC = () => {
             <label className="mb-2 text-left w-full">Password</label>
             <input
               className="p-2 border-gray-300 border-[1px] rounded-lg w-[300px] outline-none focus:border-gray-600 text-black"
-              type="password" // Changed from "text"
+              type="password"
               id="password"
               {...register("password", { required: true })}
             />
@@ -107,16 +110,10 @@ const Login: React.FC = () => {
           </div>
         </form>
         <div className="w-full flex flex-col gap-2 py-5">
-          <button
-            // onClick={() => signIn("google", { callbackUrl: "http://localhost:3000" })}
-            className="flex flex-row items-center justify-around text-base font-semibold p-2 outline outline-1 outline-black rounded-lg bg-white hover:bg-black hover:text-white text-black duration-700"
-          >
+          <button className="flex flex-row items-center justify-around text-base font-semibold p-2 outline outline-1 outline-black rounded-lg bg-white hover:bg-black hover:text-white text-black duration-700">
             <FcGoogle size={30} /> Continue with Google
           </button>
-          <button
-            // onClick={() => signIn("github", { callbackUrl: "http://localhost:3000" })}
-            className="flex flex-row items-center justify-around text-base font-semibold p-2 outline outline-1 outline-black rounded-lg bg-white text-black hover:bg-black hover:text-white duration-700"
-          >
+          <button className="flex flex-row items-center justify-around text-base font-semibold p-2 outline outline-1 outline-black rounded-lg bg-white text-black hover:bg-black hover:text-white duration-700">
             <FaGithub size={30} /> Continue with Github
           </button>
         </div>

@@ -1,29 +1,30 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { CiMenuBurger } from "react-icons/ci";
 import { AiOutlineClose } from "react-icons/ai";
-import { Heart, ShoppingCart } from "lucide-react";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../Redux/store";
+import { userLoggedOut } from "../Redux/auth/authSlice";
 
 const Navbar: React.FC = () => {
+  const dispatch = useDispatch();
   const session = useSelector((state: RootState) => state.auth);
-
-  const [showProfile, setShowProfile] = useState(false);
   const [showNav, setShowNav] = useState(false);
 
-  useEffect(() => {}, []);
   return (
     <div className="max-w-[1280px] mx-auto overflow-x-hidden">
       <div className=" px-5 flex items-center justify-between py-5 relative">
         <div className="flex items-center justify-center md:space-x-10 lg:space-x-20 ">
           <div className="font-semibold text-2xl">
             <Link to="/">
-              <h1 className=" gradient-text text-transparent text-2xl font-bold ">
+              <h1 className=" gradient-text text-transparent text-3xl font-bold pulse-animation">
                 Hotel Booking
               </h1>
             </Link>
           </div>
+        </div>
+
+        <div className=" flex items-center space-x-2">
           <nav className=" max-md:hidden flex flex-row items-center  ">
             <ul className="flex items-center space-x-3  font-semibold text-[15px]">
               <li>
@@ -36,15 +37,23 @@ const Navbar: React.FC = () => {
               </li>
               <li>
                 <Link
-                  to="/orders"
+                  to={session?.user ? "/orders" : "/login"}
                   className={` hover:bg-[#eef2f6f0] hover:text-blue-500 rounded-full py-2 px-3 inline-block w-full`}
                 >
                   Orders
                 </Link>
               </li>
+              <li>
+                <Link
+                  to="/hotels"
+                  className={` hover:bg-[#eef2f6f0] hover:text-blue-500 rounded-full py-2 px-3 inline-block w-full`}
+                >
+                  Hotels
+                </Link>
+              </li>
 
-              {session ? (
-                <li>
+              {session.user ? (
+                <li onClick={() => dispatch(userLoggedOut())}>
                   <span className=" cursor-pointer hover:bg-[#eef2f6f0] hover:text-blue-500 rounded-full py-2 px-3 inline-block w-full">
                     SignOut
                   </span>
@@ -72,29 +81,11 @@ const Navbar: React.FC = () => {
               )} */}
             </ul>
           </nav>
-        </div>
 
-        <div className=" flex items-center space-x-2">
-          <div className=" cursor-pointer  ">
-            <Link to={session ? "/wishlist" : "/wishlist"}>
-              <Heart fill="red" color="#f40b0b" />
-            </Link>
-          </div>
-          <Link to="/cart">
-            <div className=" flex flex-col top-2 cursor-pointer  ">
-              <div className=" absolute top-3 px-2  w-6 ">
-                {/* {cart?.cartItems?.length} */}0
-              </div>
-              <div>
-                <ShoppingCart />
-              </div>
-            </div>
-          </Link>
-
-          <div
+          {/* <div
             onClick={() => setShowProfile(!showProfile)}
             className="relative cursor-pointer"
-          ></div>
+          ></div> */}
           {/* <ToggleTheme /> */}
 
           <span
@@ -120,16 +111,24 @@ const Navbar: React.FC = () => {
         style={{ maxWidth: "100vw", overflowX: "hidden" }}
       >
         <ul className=" flex flex-col text-[15px] py-2 ">
-          <li className=" mx-5 hover:bg-white hover:text-black hover:duration-75  rounded-full py-1 cursor-pointer ">
-            <Link to="/">
+          <Link to="/">
+            <li className=" mx-5 hover:bg-white hover:text-black hover:duration-75  rounded-full py-1 cursor-pointer ">
               <span className=" px-5 ">Home</span>
-            </Link>
-          </li>
-          <li className=" mx-5 hover:bg-white hover:text-black hover:duration-75 rounded-full py-1 cursor-pointer ">
-            <Link to="/orders">
+            </li>
+          </Link>
+
+          <Link to="/orders">
+            <li className=" mx-5 hover:bg-white hover:text-black hover:duration-75 rounded-full py-1 cursor-pointer ">
               <span className=" px-5 ">Orders</span>
-            </Link>
-          </li>
+            </li>
+          </Link>
+
+          <Link to="/hotels">
+            <li className=" mx-5 hover:bg-white hover:text-black hover:duration-75 rounded-full py-1 cursor-pointer ">
+              <span className=" px-5 ">Hotels</span>
+            </li>
+          </Link>
+
           {/* 
           {session?.user?.role === "admin" && (
             <li className=" mx-5 hover:bg-white hover:duration-75 rounded-full py-1 cursor-pointer ">
@@ -139,10 +138,11 @@ const Navbar: React.FC = () => {
             </li>
           )} */}
           {session ? (
-            <button className=" cursor-pointer my-3 mx-5 w-[120px] text-body-semibold text-white bg-black hover:duration-75 rounded-full py-2 ">
-              <Link to="/register">
-                <span className=" px-5 ">Sign Out</span>
-              </Link>
+            <button
+              onClick={() => dispatch(userLoggedOut())}
+              className=" cursor-pointer my-3 mx-5 w-[120px] text-body-semibold text-white bg-black hover:duration-75 rounded-full py-2 "
+            >
+              <span className=" px-5 ">Sign Out</span>
             </button>
           ) : (
             <button className=" my-3 mx-5 w-[120px] text-body-semibold text-white bg-black hover:duration-75 rounded-full py-2 cursor-pointer">

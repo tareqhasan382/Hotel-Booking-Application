@@ -2,7 +2,84 @@
 @tailwind components;
 @tailwind utilities;
 
+.gradient-text {
+  background: linear-gradient(270deg, #ff7e5f, #feb47b, #ff7e5f, #6a82fb, #fc5c7d, #6a82fb);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.scale-animation {
+  @apply hover:scale-125 transition-all duration-700;
+}
+
+.color-animation {
+  @apply transition-colors duration-500;
+}
+
+.color-animation:hover {
+  @apply text-indigo-500;
+}
+.pulse-animation {
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    color: #ff7e5f;
+  }
+  25% {
+    color: #feb47b;
+  }
+  50% {
+    color: #ff7e5f;
+  }
+  75% {
+    color: #6a82fb;
+  }
+  100% {
+    color: #fc5c7d;
+  }
+}
+
+  
+     /* background: linear-gradient(to right , #a855f7,#ec4899,#eab308);
+
+     @tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 .gradient-text{
-    background: linear-gradient(to right , #a855f7,#ec4899,#eab308);
+ 
+    background: linear-gradient(270deg, #ff7e5f, #feb47b, #ff7e5f, #6a82fb, #fc5c7d, #6a82fb);
     background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
    }
+   .color-animation {
+    animation: changeColor 5s infinite;
+  }
+  
+  @keyframes changeColor {
+    0% {
+      color: #ff7e5f;
+    }
+    25% {
+      color: #feb47b;
+    }
+    50% {
+      color: #ff7e5f;
+    }
+    75% {
+      color: #6a82fb;
+    }
+    100% {
+      color: #fc5c7d;
+    }
+  }
+   .scale-animation {
+    @apply hover:scale-125 transition-all duration-700;
+  }
+     
+     
+     */

@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import baseApi from "../api/baseApi";
 export interface Hotel {
   id: number;
@@ -10,10 +9,13 @@ export interface Hotel {
     price: number;
   }[];
 }
-
+interface UpdateAvailabilityArgs {
+  data: { startDate: string; endDate: string };
+  id: string;
+}
 export const roomApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
-    fetchHotels: build.query<any, any>({
+    fetchHotels: build.query({
       query: (data) => ({
         url: "/hotels",
         method: "GET",
@@ -22,14 +24,23 @@ export const roomApi = baseApi.injectEndpoints({
       providesTags: ["hotel"],
     }),
     // router.get("/singleRoom/:id", RoomController.getSingleRoomData);
-    getRoom: build.query<any, any>({
+    getRoom: build.query({
       query: (id) => ({
         url: `/singleRoom/${id}`,
         method: "GET",
       }),
       providesTags: ["hotel"],
     }),
-    Hotels: build.query<any, any>({
+    // router.patch("/availability/:id", patch
+    updateAvailability: build.mutation<void, UpdateAvailabilityArgs>({
+      query: ({ data, id }) => ({
+        url: `/availability/${id}`,
+        method: "PATCH",
+        body: data,
+      }),
+    }),
+
+    Hotels: build.query({
       query: (data) => ({
         url: "/hotels",
         method: "GET",
@@ -58,7 +69,6 @@ export const roomApi = baseApi.injectEndpoints({
         url: `/hotel/${id}`,
         method: "GET",
       }),
-      providesTags: ["hotel"],
     }),
   }),
 });
@@ -70,4 +80,5 @@ export const {
   useHotelQuery,
   useHotelsQuery,
   useGetRoomQuery,
+  useUpdateAvailabilityMutation,
 } = roomApi;
